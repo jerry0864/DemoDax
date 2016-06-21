@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">DemoSwipeLayout</string>
+    <string name="title_activity_normal">NormalActivity</string>
+    <string name="title_activity_swipe_list_view">SwipeListViewActivity</string>
+    <string name="title_activity_swipe_view_pager">SwipeViewPagerActivity</string>
+</resources>

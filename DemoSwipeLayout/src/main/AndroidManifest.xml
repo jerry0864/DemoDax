@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dax.demo.swipelayout">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        >
+        <activity android:name=".Activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.NormalActivity"
+            android:label="@string/title_activity_normal"
+            />
+        <activity
+            android:name=".Activity.SwipeListViewActivity"
+            android:label="@string/title_activity_swipe_list_view"
+            />
+        <activity
+            android:name=".Activity.SwipeViewPagerActivity"
+            android:label="@string/title_activity_swipe_view_pager"
+            ></activity>
+    </application>
+
+</manifest>
