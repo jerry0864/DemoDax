@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:clickable="true"
+    android:background="@drawable/selector_color_gray"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_left"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/strategy_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="安静的浪费卡死的放假啦是肯德基弗拉水电费"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/strategy_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/strategy_title"
+                android:layout_marginTop="3dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="技术搭建弗兰克升级登录快放假哎卡洛斯的房间里萨克的减肥了圣诞节开发了三大"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/strategy_read_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/strategy_desc"
+                android:layout_marginTop="5dp"
+                android:text="182阅读"
+                android:textColor="@color/blue_light"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/strategy_agree_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/strategy_read_num"
+                android:layout_below="@id/strategy_desc"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/strategy_read_num"
+                android:text="100赞"
+                android:textColor="@color/blue_light"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/strategy_comment_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/strategy_read_num"
+                android:layout_below="@id/strategy_desc"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/strategy_agree_num"
+                android:text="182评论"
+                android:textColor="@color/blue_light"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="80dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/strategy_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/game_default_image" />
+
+            <ImageView
+                android:id="@+id/strategy_type_flag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/img_free_icon" />
+
+            <ImageView
+                android:id="@+id/strategy_video_play_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/img_ic_video_play" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="90dp"
+        android:background="@color/gray_light" />
+
+</LinearLayout>
