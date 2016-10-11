@@ -15,6 +15,7 @@ import com.kugou.demo.iplay.adapter.GamePagerAdapter;
 import com.kugou.demo.iplay.pagerslidingtabstrip.PagerSlidingTabStrip;
 import com.kugou.demo.iplay.slidingmenu.SlidingMenu;
 import com.kugou.demo.iplay.widget.MainTabViewPager;
+import com.kugou.demo.iplay.widget.TipsLayout;
 
 import java.util.ArrayList;
 /**
@@ -57,6 +58,8 @@ public class GameHomeFragmet extends Fragment implements ViewPager.OnPageChangeL
     private PagerSlidingTabStrip mPagerSlidingTabStrip;
     private GamePagerAdapter mAdapter;
     private void initView(View view) {
+        TipsLayout tipsLayout = (TipsLayout) view.findViewById(R.id.tips_layout);
+        tipsLayout.show(TipsLayout.TYPE_FAILE);
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
         mAdapter = new GamePagerAdapter(getChildFragmentManager());
         ArrayList<Fragment> fragments = new ArrayList<>();
