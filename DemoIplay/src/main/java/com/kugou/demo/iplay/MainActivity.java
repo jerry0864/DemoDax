@@ -1,9 +1,5 @@
-package com.kugou.demo.iplay;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.widget.RadioGroup;
+package com.kugou.demo.iplay;
 
 import com.kugou.demo.iplay.adapter.HomePagerAdapter;
 import com.kugou.demo.iplay.fragment.GameHomeFragmet;
@@ -13,20 +9,30 @@ import com.kugou.demo.iplay.slidingmenu.BaseSlidingActivity;
 import com.kugou.demo.iplay.slidingmenu.SlidingMenu;
 import com.kugou.demo.iplay.widget.MainTabViewPager;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.widget.RadioGroup;
+
 import java.util.ArrayList;
 
 /**
  * 应用首页
+ * 
  * @author jerryliu
  * @since 2016/7/23 14:35
  */
-public class MainActivity extends BaseSlidingActivity implements RadioGroup.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseSlidingActivity
+        implements RadioGroup.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
 
     private RadioGroup mRadioGroup;
+
     private MainTabViewPager mViewPager;
+
     private SlidingMenu mSlidingMenu;
 
     private static final int TAB_GAME = 0;
+
     private static final int TAB_WELFARE = 1;
 
     @Override
@@ -37,11 +43,11 @@ public class MainActivity extends BaseSlidingActivity implements RadioGroup.OnCh
         initSlideMenu();
     }
 
-    public MainTabViewPager getMainViewPager(){
+    public MainTabViewPager getMainViewPager() {
         return mViewPager;
     }
 
-    public SlidingMenu getHomeSlidingMenu(){
+    public SlidingMenu getHomeSlidingMenu() {
         return mSlidingMenu;
     }
 
@@ -68,29 +74,30 @@ public class MainActivity extends BaseSlidingActivity implements RadioGroup.OnCh
         WelfareFragment welfareFragment = new WelfareFragment();
         fragments.add(gameFragment);
         fragments.add(welfareFragment);
-        HomePagerAdapter adapter = new HomePagerAdapter(getSupportFragmentManager(),fragments);
+        HomePagerAdapter adapter = new HomePagerAdapter(getSupportFragmentManager(), fragments);
         mViewPager.setAdapter(adapter);
     }
 
-
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        switch(checkedId){
+        switch (checkedId) {
             case R.id.rb_tab_game:
-                 mViewPager.setCurrentItem(TAB_GAME);
-                 break;
+                mViewPager.setCurrentItem(TAB_GAME);
+                mViewPager.setCanScrollRight(true);
+                break;
             case R.id.rb_tab_welfare:
-                 mViewPager.setCurrentItem(TAB_WELFARE);
-                 mViewPager.setCanScrollLeft(true);
-                 break;
+                mViewPager.setCurrentItem(TAB_WELFARE);
+                mViewPager.setCanScrollLeft(true);
+                break;
         }
     }
 
     @Override
     public void onPageSelected(int position) {
-        switch(position){
+        switch (position) {
             case TAB_GAME:
                 mRadioGroup.check(R.id.rb_tab_game);
+                mViewPager.setCanScrollRight(true);
                 break;
             case TAB_WELFARE:
                 mRadioGroup.check(R.id.rb_tab_welfare);
@@ -98,9 +105,12 @@ public class MainActivity extends BaseSlidingActivity implements RadioGroup.OnCh
                 break;
         }
     }
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
     @Override
-    public void onPageScrollStateChanged(int state) {}
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+    }
 }

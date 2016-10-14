@@ -1,4 +1,12 @@
+
 package com.kugou.demo.iplay.fragment;
+
+import com.kugou.demo.iplay.MainActivity;
+import com.kugou.demo.iplay.R;
+import com.kugou.demo.iplay.adapter.GamePagerAdapter;
+import com.kugou.demo.iplay.pagerslidingtabstrip.PagerSlidingTabStrip;
+import com.kugou.demo.iplay.slidingmenu.SlidingMenu;
+import com.kugou.demo.iplay.widget.MainTabViewPager;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,28 +17,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.kugou.demo.iplay.MainActivity;
-import com.kugou.demo.iplay.R;
-import com.kugou.demo.iplay.adapter.GamePagerAdapter;
-import com.kugou.demo.iplay.pagerslidingtabstrip.PagerSlidingTabStrip;
-import com.kugou.demo.iplay.slidingmenu.SlidingMenu;
-import com.kugou.demo.iplay.widget.MainTabViewPager;
-import com.kugou.demo.iplay.widget.TipsLayout;
-
 import java.util.ArrayList;
+
 /**
  * 游戏首页
+ * 
  * @author jerryliu
  * @since 2016/7/25 11:33
  */
 public class GameHomeFragmet extends Fragment implements ViewPager.OnPageChangeListener {
     private static final String ARG_PARAM1 = "param1";
+
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
+
     private String mParam2;
 
     private MainTabViewPager mMainTabViewPager;
+
     private SlidingMenu mSlidingMenu;
 
     public GameHomeFragmet() {
@@ -47,30 +52,38 @@ public class GameHomeFragmet extends Fragment implements ViewPager.OnPageChangeL
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
         initView(view);
         return view;
     }
 
-    private final String[] TITLES = { "英雄出装", "排位攻略", "冒险攻略", "视频教学", "冒险攻略视频教学" };
+    private final String[] TITLES = {
+            "英雄出装", "排位攻略", "冒险攻略", "视频教学", "冒险攻略视频教学"
+    };
+
     private ViewPager mViewPager;
+
     private PagerSlidingTabStrip mPagerSlidingTabStrip;
+
     private GamePagerAdapter mAdapter;
+
     private void initView(View view) {
-        TipsLayout tipsLayout = (TipsLayout) view.findViewById(R.id.tips_layout);
-        tipsLayout.show(TipsLayout.TYPE_FAILE);
+        // TipsLayout tipsLayout = (TipsLayout)
+        // view.findViewById(R.id.tips_layout);
+        // tipsLayout.show(TipsLayout.TYPE_FAILE);
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
         mAdapter = new GamePagerAdapter(getChildFragmentManager());
         ArrayList<Fragment> fragments = new ArrayList<>();
         ArrayList<String> titles = new ArrayList<>();
 
-        for(int i = 0;i<5;i++){
-            GameStrategyFragment fragment = GameStrategyFragment.newInstance("资讯列表页："+i);
+        for (int i = 0; i < 5; i++) {
+            GameStrategyFragment fragment = GameStrategyFragment.newInstance("资讯列表页：" + i);
             fragments.add(fragment);
             titles.add(TITLES[i]);
         }
-        mAdapter.setFragments(fragments,titles);
+        mAdapter.setFragments(fragments, titles);
         mViewPager.setAdapter(mAdapter);
         mPagerSlidingTabStrip = (PagerSlidingTabStrip) view.findViewById(R.id.psts);
         mPagerSlidingTabStrip.setViewPager(mViewPager);
@@ -80,13 +93,13 @@ public class GameHomeFragmet extends Fragment implements ViewPager.OnPageChangeL
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mMainTabViewPager = getMainTabViewPager();
         mSlidingMenu = getHomeSlidingMenu();
+        mMainTabViewPager = getMainTabViewPager();
     }
 
     private MainTabViewPager getMainTabViewPager() {
         Activity activity = getActivity();
-        if(activity!=null&&activity instanceof MainActivity){
+        if (activity != null && activity instanceof MainActivity) {
             return ((MainActivity) activity).getMainViewPager();
         }
         return null;
@@ -94,7 +107,7 @@ public class GameHomeFragmet extends Fragment implements ViewPager.OnPageChangeL
 
     private SlidingMenu getHomeSlidingMenu() {
         Activity activity = getActivity();
-        if(activity!=null&&activity instanceof MainActivity){
+        if (activity != null && activity instanceof MainActivity) {
             return ((MainActivity) activity).getHomeSlidingMenu();
         }
         return null;
@@ -117,7 +130,10 @@ public class GameHomeFragmet extends Fragment implements ViewPager.OnPageChangeL
     }
 
     @Override
-    public void onPageScrollStateChanged(int state) {}
+    public void onPageScrollStateChanged(int state) {
+    }
+
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
 }
