@@ -1,41 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="com.dax.demo.share.MainActivity">
+    android:gravity="center"
+    tools:context="com.kugou.iplay.wz.MainActivity">
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="QQ好友分享"
-        android:onClick="qqFriendShare"
-        android:layout_margin="10dp"
+        android:text="微信分享"
+        android:padding="10dp"
+        android:onClick="weixinshare"
         />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="QQ空间分享"
-        android:onClick="qqZoneShare"
-        android:layout_margin="10dp"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="微信好友分享"
-        android:onClick="weixinFriendShare"
-        android:layout_margin="10dp"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="微信朋友圈分享"
-        android:onClick="weixinZoneShare"
-        android:layout_margin="10dp"
-        />
+
 </LinearLayout>
