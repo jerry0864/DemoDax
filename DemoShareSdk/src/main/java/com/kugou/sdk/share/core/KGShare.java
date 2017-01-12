@@ -5,12 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
-import com.kugou.sdk.share.base.IPlatform;
-import com.kugou.sdk.share.base.IShareCallback;
-import com.kugou.sdk.share.base.Platform;
-import com.kugou.sdk.share.base.ShareParams;
-import com.kugou.sdk.share.base.ShareType;
-
 import java.util.HashMap;
 
 
@@ -20,11 +14,12 @@ import java.util.HashMap;
  *@since 2017/1/4 16:53
  */
 public class KGShare {
+    private static final String TAG = "KGShare";
     private static HashMap<String,String> sPlatformClassPathMap = new HashMap<String,String>();
     static{
-        sPlatformClassPathMap.put(Platform.WEIXIN,"com.kugou.sdk.share.platform.weixin.WeixinPlatform");
-        sPlatformClassPathMap.put(Platform.QQ,"com.kugou.sdk.share.platform.qq.QQPlatform");
-        sPlatformClassPathMap.put(Platform.WEIBO,"com.kugou.sdk.share.platform.weibo.WeiboPlatform");
+        sPlatformClassPathMap.put(Platform.Name.WEIXIN,"com.kugou.sdk.share.platform.weixin.WeixinPlatform");
+        sPlatformClassPathMap.put(Platform.Name.QQ,"com.kugou.sdk.share.platform.qq.QQPlatform");
+        sPlatformClassPathMap.put(Platform.Name.WEIBO,"com.kugou.sdk.share.platform.weibo.WeiboPlatform");
     }
 
     /**
@@ -36,11 +31,12 @@ public class KGShare {
      * @param callback 分享回调
      */
     public static void share(Activity activity, String platformname, ShareType shareType, ShareParams params, IShareCallback callback){
-        IPlatform platform = findPlatform(activity,platformname);
+        PlatformHandler platform = findPlatform(activity,platformname);
         if(platform==null){
-            Log.e("KGShare","------------->"+platformname+" module does not exist.");
+            Log.e(TAG,"------------->"+platformname+" module does not exist.");
             return;
         }
+        //Log.e(TAG,"share:--->"+params.toString());
         platform.share(shareType,params,callback);
     }
 
@@ -50,9 +46,9 @@ public class KGShare {
      * @param platformClazz
      */
     public static void addPlatform(String platformname,Class platformClazz){
-        boolean isChild = IPlatform.class.isAssignableFrom(platformClazz);
+        boolean isChild = PlatformHandler.class.isAssignableFrom(platformClazz);
         if(!isChild){
-            Log.e("KGShare","new platform must implements IPlatform interface.");
+            Log.e(TAG,"new platform must implements PlatformHandler interface.");
             return;
         }
         try {
@@ -68,11 +64,12 @@ public class KGShare {
     }
 
 
-    private static IPlatform findPlatform(Activity activity, String name){
-        IPlatform platform = null;
+    private static PlatformHandler findPlatform(Activity activity, String name){
+        PlatformHandler platform = null;
         try {
-            platform = (IPlatform) Class.forName(sPlatformClassPathMap.get(name)).newInstance();
-            if(platform!=null){
+            Class clazz =  Class.forName(sPlatformClassPathMap.get(name));
+            platform = (PlatformHandler)clazz.newInstance();
+            if(platform!=null && activity!=null){
                 platform.init(activity);
             }
         } catch (Exception e) {
@@ -82,17 +79,15 @@ public class KGShare {
     }
 
     /**
-     * QQ和Qzone分享需要实现onActivityResult回调
+     * 在分享的activity里接收平台回调
      * @param requestCode
      * @param resultCode
      * @param data
      */
     public static void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == Constants.REQUEST_QQ_SHARE) {
-//            Tencent.onActivityResultData(requestCode, resultCode, data, new ShareUIListener(ShareHelper.IShareCallBack.SCENE_QQ_FRIEND));
-//        } else if (requestCode == Constants.REQUEST_QZONE_SHARE) {
-//            Tencent.onActivityResultData(requestCode, resultCode, data, new ShareHelper.ShareUIListener(ShareHelper.IShareCallBack.SCENE_QQ_ZONE));
-//        }
-
+        PlatformHandler platform = findPlatform(null,Platform.Name.QQ);
+        if(platform!=null){
+            platform.onActivityResult(requestCode,resultCode,data);
+        }
     }
 }

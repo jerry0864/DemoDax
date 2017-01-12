@@ -6,15 +6,34 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:gravity="center"
     tools:context="com.kugou.iplay.wz.MainActivity">
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="微信分享"
+        android:text="微信视频分享"
         android:padding="10dp"
-        android:onClick="weixinshare"
+        android:layout_margin="10dp"
+        android:onClick="weixinShare"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QQ空间视频分享"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:onClick="qqShare"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="新浪微博视频分享"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:onClick="weiboShare"
         />
 
 </LinearLayout>

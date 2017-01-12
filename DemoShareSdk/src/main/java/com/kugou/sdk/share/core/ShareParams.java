@@ -1,4 +1,4 @@
-package com.kugou.sdk.share.base;
+package com.kugou.sdk.share.core;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -58,4 +58,16 @@ public class ShareParams implements Parcelable{
             return new ShareParams[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return "title:"+title+"\n"+
+                "desc:"+desc+"\n"+
+                "imgUrl:"+imgUrl+"\n"+
+                "imgLocalPath:"+imgLocalPath+"\n"+
+                "vedioUrl:"+vedioUrl+"\n"+
+                "vedioLocalPath:"+vedioLocalPath+"\n"+
+                "webUrl:"+webUrl+"\n"+
+                "scene:"+scene;
+    }
 }

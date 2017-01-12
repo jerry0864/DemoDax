@@ -1,4 +1,4 @@
-package com.kugou.sdk.share.base;
+package com.kugou.sdk.share.core;
 
 /**
  * 分享回调接口

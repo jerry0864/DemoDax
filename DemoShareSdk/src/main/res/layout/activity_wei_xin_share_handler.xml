@@ -6,6 +6,6 @@
     android:id="@+id/activity_wei_xin_share_handler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kugou.sdk.share.platform.weixin.WeiXinShareHandlerActivity">
+    tools:context="com.kugou.sdk.share.platform.weixin.WXShareHandlerActivity">
 
 </android.support.constraint.ConstraintLayout>

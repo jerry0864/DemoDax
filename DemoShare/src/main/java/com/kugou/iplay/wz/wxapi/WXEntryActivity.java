@@ -1,8 +1,8 @@
 
 package com.kugou.iplay.wz.wxapi;
 
-import com.kugou.sdk.share.platform.weixin.WeiXinShareHandlerActivity;
+import com.kugou.sdk.share.platform.weixin.WXShareHandlerActivity;
 
 
-public class WXEntryActivity extends WeiXinShareHandlerActivity {
+public class WXEntryActivity extends WXShareHandlerActivity {
 }
