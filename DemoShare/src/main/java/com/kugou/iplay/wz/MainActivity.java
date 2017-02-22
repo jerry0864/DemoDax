@@ -1,15 +1,17 @@
 package com.kugou.iplay.wz;
 
+import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.HandlerThread;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
 import com.kugou.sdk.share.core.IShareCallback;
-import com.kugou.sdk.share.core.PlatformConfig;
 import com.kugou.sdk.share.core.KGShare;
 import com.kugou.sdk.share.core.Platform;
+import com.kugou.sdk.share.core.PlatformConfig;
 import com.kugou.sdk.share.core.Scene;
 import com.kugou.sdk.share.core.ShareParams;
 import com.kugou.sdk.share.core.ShareType;
