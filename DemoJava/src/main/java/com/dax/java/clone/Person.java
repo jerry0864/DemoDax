@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class Person implements Cloneable {
     public String name;
     public int age;
-    boolean flag;
+    boolean flag = false;
     public HashMap info = new HashMap();
 
     @Override

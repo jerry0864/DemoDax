@@ -1,10 +1,10 @@
 package com.dax.java;
 
-import com.dax.java.clone.Person;
+import com.dax.java.clone.Man;
 
 public class Demo {
     public static void main(String[] args){
-        //testClone();
+        testClone();
         //testStringCompare();
 
     }
@@ -25,16 +25,26 @@ public class Demo {
     }
 
     private static void testClone() {
-        Person person = new Person();
-        person.name = "zhangsan";
-        person.age = 18;
+        //对引用类型和基本数据类型的拷贝
+//        Person person = new Person();
+//        person.name = "zhangsan";
+//        person.age = 18;
+//        Person person1 = person.clone();
+        //person1.name = "zhangsan";
+       // person.age = 18;
+//        System.out.println(person == person1);
+//        System.out.println(person.name == person1.name);
+//        System.out.println(person.info == person1.info);
 
-        Person person1 = person.clone();
-        person1.name = "zhangsan";
-        person.age = 18;
-        System.out.println(person == person1);
-        System.out.println(person.name == person1.name);
-        System.out.println(person.info == person1.info);
+        //继承类如果增加的是基本数据类型的字段，不需要复写clone方法；但如果有增加引用数据类型字段，则需要复写clone方法
+        Man m = new Man();
+        m.age = 18;
+        m.name = "zhaowu";
+        m.job = "coder";
+        Man m1 = (Man) m.clone();
+        System.out.println(m.toString());
+        System.out.println(m1.toString());
+        System.out.println(m1.al == m.al);
     }
 }
 
