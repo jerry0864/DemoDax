@@ -1,6 +1,6 @@
 package com.dax.java.clone;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Desc:
@@ -8,13 +8,24 @@ import java.util.ArrayList;
  * Email:liuxiong@corp.netease.com
  */
 
-public class Man extends Person {
+public class Man extends Person implements Cloneable{
     public String job;
-    public ArrayList al = new ArrayList();
+    public HashMap al = new HashMap();
 
     @Override
     public String toString() {
         return name+"-" +age+"-"+job +"-" +flag;
     }
 
+    @Override
+    public Man clone() {
+        Man m = null;
+        try {
+            m = (Man) super.clone();
+            m.al = (HashMap) al.clone();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return m;
+    }
 }

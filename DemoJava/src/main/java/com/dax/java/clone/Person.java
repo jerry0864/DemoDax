@@ -8,7 +8,7 @@ import java.util.HashMap;
  * Email:liuxiong@corp.netease.com
  */
 
-public class Person implements Cloneable {
+public class Person implements Cloneable{
     public String name;
     public int age;
     boolean flag = false;

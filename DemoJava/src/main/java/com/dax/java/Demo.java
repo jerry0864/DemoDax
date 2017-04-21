@@ -36,15 +36,17 @@ public class Demo {
 //        System.out.println(person.name == person1.name);
 //        System.out.println(person.info == person1.info);
 
-        //继承类如果增加的是基本数据类型的字段，不需要复写clone方法；但如果有增加引用数据类型字段，则需要复写clone方法
+        //子类如果增加的是基本数据类型的字段，不需要复写clone方法；但如果有增加引用数据类型字段，则需要复写clone方法，添加引用数据的拷贝
         Man m = new Man();
         m.age = 18;
         m.name = "zhaowu";
         m.job = "coder";
+        m.al.put("key1","value1");
         Man m1 = (Man) m.clone();
         System.out.println(m.toString());
         System.out.println(m1.toString());
-        System.out.println(m1.al == m.al);
+        System.out.println(m.al.toString());
+        System.out.println(m1.al.toString());
     }
 }
 
