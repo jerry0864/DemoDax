@@ -1,0 +1,80 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+
+    defaultConfig {
+        minSdkVersion 11
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+	
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    testCompile 'junit:junit:4.12'
+}
+
+//当前project的所有任务添加完成后会在配置阶段执行。可以对添加的任务做一些操作，或配置一些信息。
+tasks.whenTaskAdded { task ->
+	if(task.name.contains('Proguard')){
+	//关闭某些task
+	//	task.enabled = falseprintln "======================== "+task.name
+	}
+}
+
+afterEvaluate{
+	//println "===========afterEvaluate============= "
+	//获取应用包名
+	def manifestFile = android.sourceSets.main.manifest.srcFile
+	def packageName = new XmlParser().parse(manifestFile).attribute('package')
+	//println "-------------------------包名是：----------------------- "+packageName
+}
+
+//拷贝jar包
+task copyLib(type: Copy, dependsOn: ['build']) {
+    from( 'build/intermediates/bundles/release/')
+    into( 'build/libs')
+    include('classes.jar')
+    rename('classes.jar', 'my-lib.jar')
+}
+
+//打包jar包
+task jarLib(type: Jar, dependsOn: ['build']) {
+    archiveName = 'my-lib.jar'
+    from('build/intermediates/classes/release')
+    //from(project.zipTree("libs/xxx-x.x.x.jar")) // 添加这一行，包含第三方jar包
+    destinationDir = file('build/libs')
+    exclude('com/dax/lib/BuildConfig.class')
+    exclude('com/dax/lib/BuildConfig\$*.class')
+    exclude('**/R.class')
+    exclude('**/R\$*.class')
+    include('com/dax/lib/*.class')
+    //include('com/xxx/*.class') // 同时记得加上第三方的package
+}
+
+//混淆jar包
+def androidSDKDir = plugins.getPlugin('com.android.library').sdkHandler.getSdkFolder()
+def androidJarDir = androidSDKDir.toString() + '/platforms/' + "${android.compileSdkVersion}" + '/android.jar'
+task proguardLib(type: proguard.gradle.ProGuardTask, dependsOn: ['jarLib']) {
+    injars('build/libs/my-lib.jar')
+    outjars('build/libs/my-pro-lib.jar')
+    libraryjars(androidJarDir)
+    configuration 'proguard-rules.pro'
+}

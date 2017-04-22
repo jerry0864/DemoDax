@@ -1,25 +1,21 @@
-apply plugin: 'com.android.application'
-apply from: "./tinker.gradle"
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
-
-    defaultConfig {
-        applicationId "com.dax.demo.tinker"
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+buildscript {
+    repositories {
+        jcenter()
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath ("com.tencent.tinker:tinker-patch-gradle-plugin:${TINKER_VERSION}")
     }
 }
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }

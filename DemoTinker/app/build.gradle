@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+apply from: "../tinker.gradle"
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.dax.demo.tinker"
+        minSdkVersion 17
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("./keystore/release.jks")
+            storePassword "daxdemo"
+            keyAlias "daxdemo"
+            keyPassword "daxdemo"
+        }
+
+        debug {
+            storeFile file("./keystore/release.jks")
+            storePassword "daxdemo"
+            keyAlias "daxdemo"
+            keyPassword "daxdemo"
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    dexOptions {
+        jumboMode = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile project(':framework')
+}
+

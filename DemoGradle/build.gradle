@@ -1,0 +1,56 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.2'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) << {
+	println "--------------clean--------------"
+    delete rootProject.buildDir
+}
+
+ext{
+	//全局密钥密码
+	pwd = ""
+}
+
+afterEvaluate{
+	//println "--------------------------afterEvaluate-----------------------"
+	project.ext.pwd = "";
+	String pwdFile = project.rootDir.getPath()+"\\keystore_release_info.properties";
+	File file = new File(pwdFile);
+	if(file!=null&&file.exists()){
+		Properties prop = new Properties();
+		prop.load(new FileInputStream(pwdFile));
+		pwd = prop.getProperty('pwd');
+		//println "--------------------------密码是：----------------------- "+pwd
+	}
+}
+
+
+//gradle知识点
+//1、新建buildConfig变量 如是否开启log
+//2、动态读取签名秘钥密码
+//3、为不同渠道包修改不同包名applicationId
+//4、引入脚本
+
+//TODO
+//动态插入task
+//执行jar命令任务
+
+
+
