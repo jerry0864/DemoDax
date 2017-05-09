@@ -3,16 +3,29 @@ package com.dax.demo.fingerprint;
 import android.app.KeyguardManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.support.v4.os.CancellationSignal;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import javax.crypto.Cipher;
+
+/**
+ * refrerrence:
+ * http://blog.csdn.net/wl9739/article/details/52444671
+ * http://blog.csdn.net/lintcgirl/article/details/51355203
+ * http://blog.csdn.net/createchance/article/details/51991764
+ *
+ * Desc:MainActivity
+ * Created by liuxiong on 2017/5/9.
+ * Email:liuxiong@corp.netease.com
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "FingerPrintRecognize";
     private Button mBtnScanner,mBtnCancel;
@@ -25,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         mBtnScanner = (Button) findViewById(R.id.btn_scanner);
         mBtnCancel = (Button) findViewById(R.id.btn_cancel);
+        findViewById(R.id.btn_write_info).setOnClickListener(this);
+        findViewById(R.id.btn_read_info).setOnClickListener(this);
         mBtnScanner.setOnClickListener(this);
         mBtnCancel.setOnClickListener(this);
         initFingerPrintMgr();
@@ -45,7 +60,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_cancel:
                 cancelFingerRecognize();
                 break;
+            case R.id.btn_write_info:
+                showDialog("您将要存入密码："+PWD);
+                startFingerRecognize();
+                write = true;
+                break;
+            case R.id.btn_read_info:
+                showDialog("");
+                startFingerRecognize();
+                write = false;
+                break;
         }
+    }
+    private static final String PWD = "123456";
+    private AlertDialog dialog;
+    private boolean write;
+    private void showDialog(String message) {
+        dialog = new AlertDialog.Builder(this).setTitle("请进行指纹识别")
+                .setMessage(message)
+                .create();
+        dialog.show();
+
     }
 
     private void cancelFingerRecognize() {
@@ -102,15 +137,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void scannerPrint() throws Exception{
         mCancelSignal = new CancellationSignal();
         //用对称加密对象
-        //CryptoObjectHelper cryptoHelper = new CryptoObjectHelper();
-        //FingerprintManagerCompat.CryptoObject cryptoObject = cryptoHelper.buildCryptoObject();
-        //使用非对称性加密对象
-        AsymmetricCryptoObjectHelper cryptoHelper = new AsymmetricCryptoObjectHelper();
+        SymmetricCryptoObjectHelper cryptoHelper = new SymmetricCryptoObjectHelper();
         FingerprintManagerCompat.CryptoObject cryptoObject = cryptoHelper.buildCryptoObject();
-        Log.d(TAG,"cryptoObject --> "+(cryptoObject==null?null:cryptoObject.toString()));
+        //使用非对称性加密对象
+//        AsymmetricCryptoObjectHelper cryptoHelper = new AsymmetricCryptoObjectHelper();
+//        FingerprintManagerCompat.CryptoObject cryptoObject = cryptoHelper.buildCryptoObject();
+      Log.d(TAG,"cryptoObject --> "+(cryptoObject==null?null:cryptoObject.toString()));
         mFingerManager.authenticate(cryptoObject,0, mCancelSignal, mCallback,null);
     }
-
+    String encryptText;
     private FingerprintManagerCompat.AuthenticationCallback mCallback = new FingerprintManagerCompat.AuthenticationCallback() {
         @Override
         public void onAuthenticationError(int errMsgId, CharSequence errString) {
@@ -130,21 +165,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
             super.onAuthenticationSucceeded(result);
             //Log.d(TAG,"onAuthenticationSucceeded--> "+result.getCryptoObject().toString());
-            Log.d(TAG,"onAuthenticationSucceeded--> "+ (Looper.myLooper()==Looper.getMainLooper()));
             showToast("指纹识别成功");
+            if(dialog!=null){
+                dialog.dismiss();
+            }
             //验证指纹结果是否有篡改
-//            FingerprintManagerCompat.CryptoObject obj = result.getCryptoObject();
-//            Cipher cipher = obj.getCipher();
-//            try {
-//                byte[] encrypted = cipher.doFinal("secret message".getBytes());
-//                String text = Base64.encodeToString(encrypted, 0 /* flags */);
-//                Log.d(TAG,"onAuthenticationSucceeded--> "+text);
-//            } catch (IllegalBlockSizeException e) {
-//                e.printStackTrace();
-//            } catch (BadPaddingException e) {
-//                e.printStackTrace();
-//            }
-
+            FingerprintManagerCompat.CryptoObject obj = result.getCryptoObject();
+            Cipher cipher = obj.getCipher();
+            try {
+                if(write){
+                    byte[] encrypted = cipher.doFinal(PWD.getBytes());
+                    encryptText = Base64.encodeToString(encrypted, Base64.DEFAULT /* flags */);
+                    Log.d(TAG,"onAuthenticationSucceeded-encrypted-> "+encryptText);
+                }else{
+                    byte[] decrypted = cipher.doFinal(Base64.decode(encryptText,Base64.DEFAULT));
+                    String pwd = Base64.encodeToString(decrypted, Base64.DEFAULT /* flags */);
+                    Log.d(TAG,"onAuthenticationSucceeded-decrypted-> "+pwd);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         @Override

@@ -4,6 +4,7 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
+import android.util.Base64;
 import android.util.Log;
 
 import java.io.IOException;
@@ -131,7 +132,7 @@ public class AsymmetricCryptoObjectHelper {
             KeyFactory factory = KeyFactory.getInstance(publicKey.getAlgorithm());
             X509EncodedKeySpec spec = new X509EncodedKeySpec(publicKey.getEncoded());
             PublicKey verificationKey = factory.generatePublic(spec);
-            Log.d("PublicKey","2---> "+new String(verificationKey.getEncoded()));
+            Log.d("PublicKey","2---> "+ Base64.encodeToString(verificationKey.getEncoded(),Base64.DEFAULT));
             return verificationKey;
         } catch (KeyStoreException | CertificateException | NoSuchAlgorithmException |
                 IOException | InvalidKeySpecException e) {
