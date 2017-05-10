@@ -1,5 +1,6 @@
 package com.dax.demo.fingerprint;
 
+import android.content.Context;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
@@ -13,9 +14,11 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Desc:对称加密对象生成帮助类
@@ -38,13 +41,15 @@ public class SymmetricCryptoObjectHelper {
             BLOCK_MODE + "/" +
             ENCRYPTION_PADDING;
     final KeyStore mKeyStore;
-
-    public SymmetricCryptoObjectHelper() throws Exception {
+    Context mContext;
+    public SymmetricCryptoObjectHelper(Context context) throws Exception {
+        this.mContext = context;
         mKeyStore = KeyStore.getInstance(KEYSTORE_NAME);
         mKeyStore.load(null);
     }
-
-    public FingerprintManagerCompat.CryptoObject buildCryptoObject() throws Exception {
+    int mType;
+    public FingerprintManagerCompat.CryptoObject buildCryptoObject(int type) throws Exception {
+        this.mType = type;
         Cipher cipher = createCipher(true);
         return new FingerprintManagerCompat.CryptoObject(cipher);
     }
@@ -52,7 +57,13 @@ public class SymmetricCryptoObjectHelper {
     Cipher createCipher(boolean retry) throws Exception {
         Key key = getKey();
         Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-        cipher.init(Cipher.ENCRYPT_MODE | Cipher.DECRYPT_MODE, key);
+        if(mType == Cipher.DECRYPT_MODE){
+            String iv = mContext.getSharedPreferences("temp",MODE_PRIVATE).getString("iv",null);
+            cipher.init(Cipher.DECRYPT_MODE , key,new IvParameterSpec(Base64.decode(iv,Base64.DEFAULT)));
+        }else{
+            cipher.init(Cipher.ENCRYPT_MODE , key);
+        }
+        Log.d("liuxiong","111---> "+cipher.toString()) ;
 //        try {
 //        } catch (KeyPermanentlyInvalidatedException e) {
 //            mKeyStore.deleteEntry(KEY_NAME);

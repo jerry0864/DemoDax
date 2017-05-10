@@ -12,6 +12,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import javax.crypto.Cipher;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FingerprintManagerCompat mFingerManager;
     private KeyguardManager mKeyguardManager;
     private CancellationSignal mCancelSignal;
+    private TextView mTvInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtnCancel = (Button) findViewById(R.id.btn_cancel);
         findViewById(R.id.btn_write_info).setOnClickListener(this);
         findViewById(R.id.btn_read_info).setOnClickListener(this);
+        mTvInfo = (TextView)findViewById(R.id.text_info);
         mBtnScanner.setOnClickListener(this);
         mBtnCancel.setOnClickListener(this);
         initFingerPrintMgr();
@@ -55,19 +58,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.btn_scanner:
-                startFingerRecognize();
+                //startFingerRecognize();
                 break;
             case R.id.btn_cancel:
-                cancelFingerRecognize();
+                //cancelFingerRecognize();
                 break;
             case R.id.btn_write_info:
                 showDialog("您将要存入密码："+PWD);
-                startFingerRecognize();
+                startFingerRecognize(Cipher.ENCRYPT_MODE);
                 write = true;
                 break;
             case R.id.btn_read_info:
                 showDialog("");
-                startFingerRecognize();
+                startFingerRecognize(Cipher.DECRYPT_MODE);
                 write = false;
                 break;
         }
@@ -91,10 +94,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void startFingerRecognize() {
+    private void startFingerRecognize(int type) {
         //是否支持指纹识别
         boolean supported = mFingerManager.isHardwareDetected();
-        Log.d(TAG,"hardware support fingerprint function --> "+supported);
+        //Log.d(TAG,"hardware support fingerprint function --> "+supported);
         if(!supported){
             showToast("该设备不支持指纹识别");
             return;
@@ -106,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         //是否已经有录入过指纹
         boolean hasEnrolled = mFingerManager.hasEnrolledFingerprints();
-        Log.d(TAG,"has enrolled fingerprint --> "+hasEnrolled);
+        //Log.d(TAG,"has enrolled fingerprint --> "+hasEnrolled);
         if(!hasEnrolled){
             showToast("该设备暂没有登记指纹，请去设置界面录入指纹");
             startActivity(new Intent(Settings.ACTION_SETTINGS));
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //识别指纹
         try {
-            scannerPrint();
+            scannerPrint(type);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -134,17 +137,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void scannerPrint() throws Exception{
+    private void scannerPrint(int type) throws Exception{
         mCancelSignal = new CancellationSignal();
         //用对称加密对象
-        SymmetricCryptoObjectHelper cryptoHelper = new SymmetricCryptoObjectHelper();
-        FingerprintManagerCompat.CryptoObject cryptoObject = cryptoHelper.buildCryptoObject();
+        SymmetricCryptoObjectHelper cryptoHelper = new SymmetricCryptoObjectHelper(MainActivity.this);
+        FingerprintManagerCompat.CryptoObject cryptoObject = cryptoHelper.buildCryptoObject(type);
         //使用非对称性加密对象
 //        AsymmetricCryptoObjectHelper cryptoHelper = new AsymmetricCryptoObjectHelper();
 //        FingerprintManagerCompat.CryptoObject cryptoObject = cryptoHelper.buildCryptoObject();
-      Log.d(TAG,"cryptoObject --> "+(cryptoObject==null?null:cryptoObject.toString()));
+      //Log.d(TAG,"cryptoObject --> "+(cryptoObject==null?null:cryptoObject.toString()));
         mFingerManager.authenticate(cryptoObject,0, mCancelSignal, mCallback,null);
     }
+
     String encryptText;
     private FingerprintManagerCompat.AuthenticationCallback mCallback = new FingerprintManagerCompat.AuthenticationCallback() {
         @Override
@@ -164,23 +168,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onAuthenticationSucceeded(FingerprintManagerCompat.AuthenticationResult result) {
             super.onAuthenticationSucceeded(result);
-            //Log.d(TAG,"onAuthenticationSucceeded--> "+result.getCryptoObject().toString());
+            Log.d(TAG,"onAuthenticationSucceeded--> "+result.getCryptoObject().toString());
             showToast("指纹识别成功");
             if(dialog!=null){
                 dialog.dismiss();
             }
-            //验证指纹结果是否有篡改
             FingerprintManagerCompat.CryptoObject obj = result.getCryptoObject();
             Cipher cipher = obj.getCipher();
             try {
                 if(write){
                     byte[] encrypted = cipher.doFinal(PWD.getBytes());
+                    byte[] IVByte = cipher.getIV();
+
+                    //String se = Base64.encodeToString(encrypted, Base64.URL_SAFE);
+                    String iv = Base64.encodeToString(IVByte, Base64.DEFAULT);
+                    getSharedPreferences("temp",MODE_PRIVATE).edit().putString("iv",iv).commit();
                     encryptText = Base64.encodeToString(encrypted, Base64.DEFAULT /* flags */);
                     Log.d(TAG,"onAuthenticationSucceeded-encrypted-> "+encryptText);
+                    mTvInfo.setText(encryptText);
                 }else{
-                    byte[] decrypted = cipher.doFinal(Base64.decode(encryptText,Base64.DEFAULT));
-                    String pwd = Base64.encodeToString(decrypted, Base64.DEFAULT /* flags */);
+                    Log.d(TAG,"onAuthenticationSucceeded-decrypted-> "+encryptText);
+                    byte[] decode = Base64.decode(encryptText,Base64.DEFAULT);
+                    byte[] decrypted = cipher.doFinal(decode);
+                    String pwd = new String(decrypted);
                     Log.d(TAG,"onAuthenticationSucceeded-decrypted-> "+pwd);
+                    mTvInfo.setText(pwd);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -20,6 +20,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/selector_bg"
         android:padding="10dp"
+        android:visibility="gone"
         android:text="开始识别" />
 
     <Button
@@ -30,6 +31,7 @@
         android:background="@drawable/selector_bg"
         android:padding="10dp"
         android:enabled="false"
+        android:visibility="gone"
         android:text="取消识别" />
 
     <Button
@@ -49,5 +51,14 @@
         android:background="@drawable/selector_bg"
         android:padding="10dp"
         android:text="读取信息" />
+
+    <TextView
+        android:id="@+id/text_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector_bg"
+        android:padding="10dp"
+        />
 
 </LinearLayout>
