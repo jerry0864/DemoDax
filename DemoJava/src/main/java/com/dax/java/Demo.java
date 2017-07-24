@@ -4,9 +4,27 @@ import com.dax.java.clone.Man;
 
 public class Demo {
     public static void main(String[] args){
-        testClone();
+        //testClone();
         //testStringCompare();
 
+        testFormatTime2Array();
+
+    }
+
+    private static void testFormatTime2Array() {
+        long time = 10*60*60*1000+12*60*1000+13*1000;
+        int hour = (int)(time/1000/60/60);
+        int hourfirst = hour/10;
+        int hoursecond = hour%10;
+        System.out.println("hour-> "+hour+" hourfirst-> "+hourfirst+" hoursecond-> "+hoursecond);
+        int minute = (int)(time/1000/60)%60;
+        int minfirst = minute/10;
+        int minsecond = minute%10;
+        System.out.println("minute-> "+minute+" minfirst-> "+minfirst+" minsecond-> "+minsecond);
+        int second = (int)(time/1000)%60;
+        int secfirst = second/10;
+        int secsecond = second%10;
+        System.out.println("second-> "+second+" secfirst-> "+secfirst+" secsecond-> "+secsecond);
     }
 
     private static void testStringCompare() {

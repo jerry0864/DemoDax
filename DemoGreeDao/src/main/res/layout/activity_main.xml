@@ -7,35 +7,83 @@
     android:orientation="vertical"
     tools:context="com.dax.demo.greedao.MainActivity">
 
-    <TextView
-        android:id="@+id/text"
+    <ListView
+        android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_weight="1"
+        android:divider="#999999"
+        android:dividerHeight="1px"
+        android:listSelector="@android:color/transparent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
         android:gravity="center"
-        />
-    <Button
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:onClick="add"
-        android:text="add" />
+        android:orientation="horizontal">
 
-    <Button
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:onClick="query"
-        android:text="query" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:onClick="add"
+            android:text="add" />
 
-    <Button
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:onClick="modify"
-        android:text="modify" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:onClick="addorder"
+            android:text="addorder" />
 
-    <Button
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:onClick="delete"
-        android:text="delete" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:onClick="query"
+            android:text="query" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:onClick="queryAll"
+            android:text="queryAll" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:onClick="update"
+            android:text="update" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:onClick="delete"
+            android:text="delete" />
+    </LinearLayout>
+
 
 </LinearLayout>

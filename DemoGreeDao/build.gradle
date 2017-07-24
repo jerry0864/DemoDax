@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         applicationId "com.dax.demo.greedao"
@@ -25,7 +25,10 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     //greedao
-    compile 'org.greenrobot:greendao:3.2.0'
+    compile 'org.greenrobot:greendao:3.2.2'
+    //调试数据库
+    //使用方法：debug运行项目，日志中打印地址：Open http://10.255.121.130:8080 in your browser，拷贝地址在chrome打开
+    debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
 
 }
 //greedao
@@ -34,7 +37,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.0'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
     }
 }
 //greedao
