@@ -30,7 +30,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:onClick="add"
             android:text="add" />
 
@@ -40,7 +40,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:onClick="addorder"
             android:text="addorder" />
 
@@ -50,7 +50,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:onClick="query"
             android:text="query" />
 
@@ -60,7 +60,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:onClick="queryAll"
             android:text="queryAll" />
 
@@ -70,7 +70,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:onClick="update"
             android:text="update" />
 
@@ -80,7 +80,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:onClick="delete"
             android:text="delete" />
     </LinearLayout>
