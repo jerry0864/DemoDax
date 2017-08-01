@@ -24,10 +24,16 @@ allprojects {
         jcenter {
             url "http://jcenter.bintray.com/"
         }
+        maven { url "https://jitpack.io" }
         mavenLocal()
+        mavenCentral()
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }

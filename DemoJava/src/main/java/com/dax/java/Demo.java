@@ -7,8 +7,7 @@ public class Demo {
         //testClone();
         //testStringCompare();
 
-        testFormatTime2Array();
-
+        //testFormatTime2Array();
     }
 
     private static void testFormatTime2Array() {
