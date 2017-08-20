@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0;i<60;i++){
             data.add("test----> "+i);
         }
+        RecyclerView rv;
         ListView list = (ListView) findViewById(R.id.list_view);
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,data.toArray());
         list.setAdapter(adapter);
@@ -78,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        };
 //        recyclerView.setAdapter(recyclerAdapter);
+
+
     }
 
     class MyHolder extends RecyclerView.ViewHolder{
@@ -90,3 +93,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+//一种解决listview内嵌在scrollview中不能滑动的解决方案；
+//    ListView lv = (ListView)findViewById(R.id.myListView);  // your listview inside scrollview
+//lv.setOnTouchListener(new ListView.OnTouchListener() {
+//@Override
+//public boolean onTouch(View v, MotionEvent event) {
+//        int action = event.getAction();
+//        switch (action) {
+//        case MotionEvent.ACTION_DOWN:
+//        // Disallow ScrollView to intercept touch events.
+//        v.getParent().requestDisallowInterceptTouchEvent(true);
+//        break;
+//
+//        case MotionEvent.ACTION_UP:
+//        // Allow ScrollView to intercept touch events.
+//        v.getParent().requestDisallowInterceptTouchEvent(false);
+//        break;
+//        }
+//
+//        // Handle ListView touch events.
+//        v.onTouchEvent(event);
+//        return true;
+//        }
+//        });
