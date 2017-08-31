@@ -5,8 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +20,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ListView list = (ListView) findViewById(R.id.list_view);
+        List<String> data = new ArrayList<>();
+        for(int i = 0;i<200;i++){
+            data.add("test-->"+i);
+        }
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,data);
+        list.setAdapter(arrayAdapter);
+        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                Log.d("dax_test","firstVisibleItem--> "+firstVisibleItem+" visibleItemCount--> "+visibleItemCount+" totalItemCount--> "+totalItemCount);
+            }
+        });
     }
 
     public void clickbtn(View view){
