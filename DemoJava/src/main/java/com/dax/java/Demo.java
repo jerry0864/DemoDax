@@ -2,12 +2,30 @@ package com.dax.java;
 
 import com.dax.java.clone.Man;
 
+import java.io.File;
+
 public class Demo {
     public static void main(String[] args){
         //testClone();
         //testStringCompare();
 
         //testFormatTime2Array();
+        renamePig();
+    }
+
+    private static void renamePig() {
+        String path = "F:\\BaiduNetdiskDownload\\pig\\";
+        File file = new File(path);
+        File[] files = file.listFiles();
+        for(File file1:files){
+            String name = file1.getName();
+            String prefix = "粉红猪小妹 第2季 第";
+            if(name.startsWith(prefix)){
+                int index = name.indexOf(prefix);
+                String string = "2_"+name.substring(index);
+                file1.renameTo(new File(path+string));
+            }
+        }
     }
 
     private static void testFormatTime2Array() {
