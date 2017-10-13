@@ -13,7 +13,7 @@ public class DemoDecimalFormat {
     public static void main(String[] args){
         //decimal();
         //strFormat();
-        bigDecimal();
+        //bigDecimal();
     }
 
     public static void strFormat(){
