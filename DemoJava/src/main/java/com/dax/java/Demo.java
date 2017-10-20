@@ -9,8 +9,8 @@ public class Demo {
         //testClone();
         //testStringCompare();
 
-        //testFormatTime2Array();
-        renamePig();
+        testFormatTime2Array();
+        //renamePig();
     }
 
     private static void renamePig() {
