@@ -6,6 +6,7 @@
 #include <jni.h>
 #include <string>
 #include "md5.h"
+
 extern "C"
 JNIEXPORT jstring JNICALL
 Java_com_dax_demo_security_Jni_stringFromJNI(JNIEnv *env, jclass type, jstring source_) {
