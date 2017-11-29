@@ -1,5 +1,6 @@
 package com.dax.demo.android;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("dax_test",getIntent().toString());
         ListView list = (ListView) findViewById(R.id.list_view);
         List<String> data = new ArrayList<>();
         for(int i = 0;i<200;i++){
@@ -36,6 +38,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 Log.d("dax_test","firstVisibleItem--> "+firstVisibleItem+" visibleItemCount--> "+visibleItemCount+" totalItemCount--> "+totalItemCount);
+            }
+        });
+
+
+        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                intent.setComponent(new ComponentName(getPackageName(), MainActivity.class.getName()));
+                //intent.setPackage("com.dax.demo.android");
+                intent.addFlags(0x10200000);
+                startActivity(intent);
             }
         });
     }
