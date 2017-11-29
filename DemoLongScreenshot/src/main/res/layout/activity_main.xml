@@ -37,13 +37,12 @@
                     android:textColor="@color/colorAccent"
                     android:text="@string/top_text" />
             </LinearLayout>
-
-            <WebView
-                android:id="@+id/webview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <ImageView
         android:id="@+id/iv_screen_shot"
         android:layout_width="match_parent"
@@ -52,5 +51,12 @@
         android:scaleType="centerInside"
         tools:visibility="visible"
         android:visibility="gone" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="截图"
+        android:onClick="screenshot"
+        />
 </FrameLayout>
 

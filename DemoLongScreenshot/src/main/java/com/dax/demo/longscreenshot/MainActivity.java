@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        if (Build.VERSION.SDK_INT >= 21) {//缓存整个网页内容的快照
+//            WebView.enableSlowWholeDocumentDraw();
+//        }
         setContentView(R.layout.activity_main);
         initView();
         //监听截图
@@ -80,12 +83,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //ShareUtil.shareToWeiXinFriend(MainActivity.this);
                 //ShareUtil.shareToWeiXinZone(MainActivity.this);
-                ShareUtil.shareToQQFriend(MainActivity.this);
+                //ShareUtil.shareToQQFriend(MainActivity.this);
                 //screenShot(webView);
             }
         });
         scrollView = (ScrollView) findViewById(R.id.scroll_view);
         layoutTop = (LinearLayout)findViewById(R.id.layout_top);
+    }
+
+    public void screenshot(View view){
+        Bitmap bitmap = ScreenShotHelper.createScreenShot(webView);
+        imageView.setVisibility(View.VISIBLE);
+        imageView.setImageBitmap(bitmap);
     }
 
     private void screenShot(View view) {
