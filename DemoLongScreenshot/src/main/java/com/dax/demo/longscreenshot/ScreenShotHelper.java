@@ -55,6 +55,7 @@ public class ScreenShotHelper {
         int leftHeight = contentHeight - viewHeight;
         Bitmap partBitmap;
         Log.d(TAG,"leftHeight--1-> "+leftHeight);
+
         while (leftHeight > 0) {
             Log.d(TAG,"leftHeight--2-> "+leftHeight +" viewHeight--->"+viewHeight);
             if (leftHeight > viewHeight) {
@@ -80,9 +81,19 @@ public class ScreenShotHelper {
     }
 
     private static Bitmap getPartViewBitmap(WebView view) {
-        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
+//        view.measure(View.MeasureSpec.makeMeasureSpec(view.getWidth(), View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(view.getHeight(), View.MeasureSpec.EXACTLY));
+//        view.layout((int) view.getX(), (int) view.getY(), (int) view.getX() + view.getMeasuredWidth(), (int) view.getY() + view.getMeasuredHeight());
+
+        view.buildDrawingCache(true);
+        view.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache(), 0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        view.setDrawingCacheEnabled(false);
+        view.destroyDrawingCache();
+
+
+//        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+//        Canvas canvas = new Canvas(bitmap);
+//        view.draw(canvas);
         return bitmap;
     }
 
