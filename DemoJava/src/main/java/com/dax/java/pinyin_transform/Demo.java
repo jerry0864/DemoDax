@@ -10,7 +10,6 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 /**
  * Desc:
  * Created by liuxiong on 2017/8/1.
- * Email:liuxiong@corp.netease.com
  */
 
 public class Demo {

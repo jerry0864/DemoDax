@@ -7,6 +7,11 @@
 #include <string>
 #include "md5.h"
 
+JNIEXPORT jstring JNICALL
+Java_com_dax_demo_jni_JNI_stringFromJNI(JNIEnv *env, jclass type) {
+    return env->NewStringUTF(0);
+}
+
 extern "C"
 JNIEXPORT jstring JNICALL
 Java_com_dax_demo_security_Jni_stringFromJNI(JNIEnv *env, jclass type, jstring source_) {

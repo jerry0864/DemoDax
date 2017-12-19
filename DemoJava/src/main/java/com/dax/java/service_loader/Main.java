@@ -8,7 +8,6 @@ import java.util.ServiceLoader;
  *
  * Desc: test main class
  * Created by liuxiong on 2017/5/9.
- * Email:liuxiong@corp.netease.com
  */
 
 public class Main {

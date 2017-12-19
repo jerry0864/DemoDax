@@ -5,7 +5,6 @@ import java.util.HashMap;
 /**
  * Desc:
  * Created by liuxiong on 2017/4/21.
- * Email:liuxiong@corp.netease.com
  */
 
 public class Man extends Person implements Cloneable{

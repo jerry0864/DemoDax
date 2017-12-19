@@ -25,7 +25,6 @@ import javax.crypto.Cipher;
  *
  * Desc:MainActivity
  * Created by liuxiong on 2017/5/9.
- * Email:liuxiong@corp.netease.com
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "FingerPrintRecognize";

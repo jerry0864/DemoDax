@@ -6,7 +6,6 @@ import java.text.DecimalFormat;
 /**
  * Desc:小数点格式化的几种方法
  * Created by liuxiong on 2017/6/26.
- * Email:liuxiong@corp.netease.com
  */
 
 public class DemoDecimalFormat {

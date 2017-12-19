@@ -15,7 +15,6 @@ import android.view.View;
 /**
  * Desc:圆形进度条
  * Created by liuxiong on 2017/10/16.
- * Email:liuxiong@corp.netease.com
  */
 public class CircleProgressView extends View {
     private Paint mPaintRing;//圆环画笔

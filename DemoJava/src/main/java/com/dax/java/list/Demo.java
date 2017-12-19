@@ -6,7 +6,6 @@ import java.util.List;
 /**
  * Desc:
  * Created by liuxiong on 2017/5/27.
- * Email:liuxiong@corp.netease.com
  */
 
 public class Demo {

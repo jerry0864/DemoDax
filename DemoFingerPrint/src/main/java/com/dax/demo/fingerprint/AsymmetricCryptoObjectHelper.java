@@ -29,7 +29,6 @@ import java.security.spec.X509EncodedKeySpec;
 /**
  * Desc:非对称加密对象帮助类
  * Created by liuxiong on 2017/5/8.
- * Email:liuxiong@corp.netease.com
  */
 public class AsymmetricCryptoObjectHelper {
     /** Alias for our key in the Android Key Store */

@@ -10,7 +10,6 @@ import android.util.Log;
 /**
  * Desc:
  * Created by liuxiong on 2017/9/28.
- * Email:liuxiong@corp.netease.com
  */
 public class Jni {
     static {

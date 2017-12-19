@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 /**
  * Desc:提供精确的浮点数运算(包括加、减、乘、除、四舍五入)工具类
  * Created by liuxiong on 2017/6/26.
- * Email:liuxiong@corp.netease.com
  */
 public class ArithUtil {
 

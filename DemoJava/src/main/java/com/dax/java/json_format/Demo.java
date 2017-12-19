@@ -13,7 +13,6 @@ import java.io.InputStreamReader;
 /**
  * Desc:
  * Created by liuxiong on 2017/8/1.
- * Email:liuxiong@corp.netease.com
  */
 public class Demo {
     private static final String SHUXING_FILE_PATH_INPUT = "D:\\test\\json\\lianhuashuxing.txt";//jibenshuxing,dianhuashuxing,lianhuashuxing

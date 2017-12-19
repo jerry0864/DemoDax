@@ -7,7 +7,6 @@ import org.greenrobot.greendao.annotation.Generated;
 /**
  * Desc:
  * Created by liuxiong on 2017/7/24.
- * Email:liuxiong@corp.netease.com
  */
 @Entity
 public class Order {

@@ -23,7 +23,6 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * Desc:对称加密对象生成帮助类
  * Created by liuxiong on 2017/5/8.
- * Email:liuxiong@corp.netease.com
  */
 
 public class SymmetricCryptoObjectHelper {
