@@ -11,5 +11,6 @@ class Activity1:FragmentActivity(){
     fun test(){
         showToast(this,"next page")
 
+        
     }
 }
