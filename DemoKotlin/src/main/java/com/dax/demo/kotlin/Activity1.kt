@@ -10,5 +10,6 @@ import android.support.v4.app.FragmentActivity
 class Activity1:FragmentActivity(){
     fun test(){
         showToast(this,"next page")
+
     }
 }
