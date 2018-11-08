@@ -1,5 +1,7 @@
 package com.dax.demo.kotlin
 
+import kotlin.reflect.KProperty
+
 /**
  * Desc:
  * Created by liuxiong on 2018/10/1.
@@ -27,10 +29,23 @@ fun main(args: Array<String>) {
     }
 
     //类型判断 is ,!is
+    val aaa:Any  = "";
+    if(aaa is String){aaa.length}
+    args.indices
+
+    val bbb:Collection<String>
+
+    val person:Person = Person(1,"","",2);
+    val person2 = person.copy();
+
+    print(sayHello())
+
+
+
 }
 
 //当某个变量的值可以为 null 的时候，必须在声明处的类型后添加 ? 来标识该引用可为空。
-fun sum(a: Int, b: Int): Int? {
+fun sum(a: Int=1, b: Int=2): Int? {
     a.inv()
     return 0;
 }
@@ -52,6 +67,8 @@ fun list(){
 }
 
 
+var data:Array<String> = arrayOf("")
+
 //when
 fun funWhen(obj:Any){
     val ranges = listOf<Int>(1,2,3,4)
@@ -61,6 +78,38 @@ fun funWhen(obj:Any){
         3,4 -> {
             print("")
         }
-        else->{}
+        else->{
+            print(ranges?.size)
+        }
+    }
+
+}
+
+fun sayHello() = "hello world"
+
+data class Person(
+        val id: Int,
+        val name: String,
+        val surname: String,
+        val age: Int
+)
+
+
+class Example {
+    var p: String by Data()
+
+    //override fun toString() = "test"
+}
+class Data(){
+    operator fun getValue(example: Example, property: KProperty<*>): String {
+        return "hello world"
+    }
+
+    operator fun setValue(example: Example, property: KProperty<*>, s: String) {
+
+
     }
 }
+
+
+
