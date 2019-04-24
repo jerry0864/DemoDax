@@ -39,9 +39,6 @@ fun main(args: Array<String>) {
     val person2 = person.copy();
 
     print(sayHello())
-
-
-
 }
 
 //当某个变量的值可以为 null 的时候，必须在声明处的类型后添加 ? 来标识该引用可为空。

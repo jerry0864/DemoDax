@@ -1,6 +1,5 @@
 package com.dax.demo.android;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
 //                <data android:scheme="@string/url_open_scheme" />
 //            </intent-filter>
                 Intent intent = new Intent();
-                ComponentName name = new ComponentName("com.netease.xyqcbg.debug","com.netease.xyqcbg.activities.LoadingActivity");
+                //ComponentName name = new ComponentName("com.netease.xyqcbg.debug","com.netease.xyqcbg.activities.LoadingActivity");
                 intent.setData(Uri.parse("netease-xyqcbg://show_equip/?server_id=496&ordersn=89_1516626719_89000030&view_loc=link_copy&equip_refer=333&activity_promo_spreader=yang92sell@163.com|b83c00d7e7afed4e6ab7d196c47c5057"));
-                intent.setComponent(name);
+                //intent.setComponent(name);
 //                IntentFilter filter = new IntentFilter();
 //                filter.addAction("android.intent.action.VIEW");
 //                filter.addCategory("android.intent.category.DEFAULT");

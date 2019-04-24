@@ -1,17 +1,89 @@
 package com.dax.java;
 
 import com.dax.java.clone.Man;
+import com.dax.java.util.FileUtil;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class Demo {
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception {
         //testClone();
         //testStringCompare();
 
-        testFormatTime2Array();
+        //testFormatTime2Array();
         //renamePig();
+        //addPinyin();
+        String aa = "aa";
+        String bb = "bb";
+        List<String> a =new ArrayList<>();
+        a.add(aa);
+        a.add(bb);
+
+        List<String> b =new ArrayList<>();
+        b.add(aa);
+        b.add(bb);
+        System.out.println(b.size());
+        a.clear();
+        System.out.println(b.size());
     }
+
+    private static void doubleInt(){
+        Double a= 3.14d;
+        Double b= 3.0d;
+        System.out.println(a == a.intValue());
+        System.out.println(b == b.intValue());
+        System.out.println(a.intValue());
+        System.out.println(b.intValue());
+    }
+
+    private static void addPinyin() throws Exception {
+        String targetpath = "D:\\test\\shuxing.json";
+        String resultpath = "D:\\test\\shuxing_pinyin.json";
+        File targetFile = new File(targetpath);
+        File resultFile = new File(resultpath);
+        String string = FileUtil.readFileString(targetFile);
+        JSONObject targetObj = new JSONObject(string);
+        JSONObject resultObj = new JSONObject();
+        Iterator<String> keys = targetObj.keys();
+        while(keys.hasNext()){
+            String key = keys.next();
+            JSONArray targetArray = targetObj.getJSONArray(key);
+            JSONArray resultArray = new JSONArray();
+            int len = targetArray.length();
+            for(int i=0;i<len;i++){
+                JSONObject obj1 = targetArray.getJSONObject(i);
+                JSONObject obj2 = new JSONObject();
+                Iterator<String> keys1 = obj1.keys();
+                while(keys1.hasNext()){
+                    String key1 = keys1.next();
+                    obj2.put(key1,obj1.getString(key1));
+                }
+                obj2.put("pinyin",obj1.getString("value"));
+                resultArray.put(i,obj2);
+            }
+            resultObj.put(key,resultArray);
+        }
+        saveFile(resultFile,resultObj.toString());
+    }
+
+    private static void saveFile(File resultFile, String s) throws IOException {
+        if(!resultFile.exists()){
+            resultFile.createNewFile();
+        }
+        FileOutputStream fos = new FileOutputStream(resultFile);
+        byte[] bytes = s.getBytes();
+        fos.write(bytes);
+        fos.close();
+    }
+
 
     private static void renamePig() {
         String path = "F:\\BaiduNetdiskDownload\\pig\\";
